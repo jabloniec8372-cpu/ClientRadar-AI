@@ -1,6 +1,6 @@
 # 🚀 ClientRadar AI
 
-**Version:** v0.7
+**Version:** v0.7.1
 
 **ClientRadar AI** is a Python lead analysis tool that imports companies from CSV, checks website availability, scores leads, generates recommendations, and exports professional reports.
 
@@ -19,9 +19,11 @@ The project is designed as a clean, beginner-friendly foundation for an AI-power
 | Company scoring | ✅ Working | Calculates a simple lead score from website and country data. |
 | Recommendations | ✅ Working | Labels companies as `High Priority`, `Medium Priority`, or `Low Priority`. |
 | Terminal report | ✅ Working | Prints report output directly in the terminal. |
-| Timestamped TXT export | ✅ Working | Saves text reports inside `reports/`. |
+| Timestamped TXT export | ✅ Working | Saves timestamped text reports inside `reports/`. |
 | Timestamped CSV export | ✅ Working | Saves structured CSV reports inside `reports/`. |
-| Summary statistics | ✅ Working | Displays totals, online/offline counts, score stats, and priority counts. |
+| Report statistics | ✅ Working | Adds total companies, average score, and best/worst score details to the report. |
+| Summary statistics | ✅ Working | Displays totals, online/offline counts, score stats, priority counts, and report paths. |
+| Blocked title cleanup | ✅ Working | Shows `Website protected or blocked` for bot-protection page titles. |
 
 ---
 
@@ -168,6 +170,23 @@ Saved to: reports/clientradar_report_2026-07-01_14-35-20.txt
 Saved to: reports/clientradar_report_2026-07-01_14-35-20.csv
 ```
 
+Text report statistics example:
+
+```text
+========== REPORT STATISTICS ==========
+
+Total companies analyzed: 4
+Average AI Score: 100.0
+All companies have the same AI score: 100
+```
+
+If analyzed companies have different scores, ClientRadar AI prints best and worst company details:
+
+```text
+Best company by score: OpenAI (100)
+Worst company by score: Example Company (70)
+```
+
 Summary example:
 
 ```text
@@ -186,6 +205,8 @@ Average AI Score: 100.0
 Highest score: 100
 
 Lowest score: 100
+
+All companies have the same AI score: 100
 
 High Priority: 4
 
@@ -206,16 +227,16 @@ reports/clientradar_report_2026-07-01_14-35-20.csv
 
 ## 🗂 Reports Folder
 
-ClientRadar AI v0.7 automatically creates a `reports/` folder when option `3` is selected.
+ClientRadar AI v0.7.1 automatically creates a `reports/` folder when option `3` is selected.
 
-Generated report files use the current local date and time:
+Report files use the current local date and time:
 
 ```text
 reports/clientradar_report_YYYY-MM-DD_HH-MM-SS.txt
 reports/clientradar_report_YYYY-MM-DD_HH-MM-SS.csv
 ```
 
-This keeps historical reports instead of overwriting the previous output.
+Only timestamped reports are created, so older reports are not overwritten.
 
 ---
 
@@ -259,6 +280,7 @@ ClientRadar AI/
 |---|---|---:|
 | v0.6 | CSV import, website checks, scoring, TXT and CSV exports | ✅ Done |
 | v0.7 | Reports folder, timestamped exports, summary statistics | ✅ Done |
+| v0.7.1 | Report output cleanup, equal-score summary polish, blocked-title cleanup | ✅ Done |
 | v0.8 | Better validation and automated tests | Planned |
 | v0.9 | Richer scoring rules and cleaner report templates | Planned |
 | v1.0 | Stable lead analysis workflow for client demos | Planned |
@@ -296,4 +318,4 @@ It demonstrates:
 
 ## 📌 Current Status
 
-ClientRadar AI v0.7 is a working terminal-based Python prototype. It imports leads, analyzes company websites, generates recommendations, exports timestamped reports, and displays summary statistics.
+ClientRadar AI v0.7.1 is a working terminal-based Python prototype. It imports leads, analyzes company websites, generates recommendations, exports timestamped reports, and includes cleaner summary/statistics output.

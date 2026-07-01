@@ -6,7 +6,7 @@ from report_generator import generate_report
 
 def main():
     print("===================================")
-    print("      CLIENTRADAR AI v0.7")
+    print("      CLIENTRADAR AI v0.7.1")
     print("===================================")
 
     companies = []

@@ -14,9 +14,26 @@ def get_page_title(html):
     )
 
     if title_match:
-        return title_match.group(1).strip()
+        return clean_title(title_match.group(1).strip())
 
     return "No title found"
+
+
+def clean_title(title):
+    blocked_phrases = [
+        "your request has been blocked",
+        "access denied",
+        "request blocked",
+        "bot detection",
+    ]
+
+    title_lower = title.lower()
+
+    for phrase in blocked_phrases:
+        if phrase in title_lower:
+            return "Website protected or blocked"
+
+    return title
 
 
 def build_result(online, status, title):
