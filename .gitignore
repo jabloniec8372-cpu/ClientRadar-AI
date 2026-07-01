@@ -25,3 +25,5 @@ Thumbs.db
 # Generated reports
 clientradar_report.txt
 clientradar_report.csv
+reports/*.txt
+reports/*.csv

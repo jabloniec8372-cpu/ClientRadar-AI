@@ -1,18 +1,30 @@
 import csv
+import os
+from datetime import datetime
 
 
-def generate_report(analyzed_companies):
-    csv_columns = [
-        "company",
-        "website",
-        "country",
-        "website_online",
-        "website_status",
-        "website_title",
-        "score",
-        "recommendation",
-    ]
+CSV_COLUMNS = [
+    "company",
+    "website",
+    "country",
+    "website_online",
+    "website_status",
+    "website_title",
+    "score",
+    "recommendation",
+]
 
+
+def create_report_paths():
+    os.makedirs("reports", exist_ok=True)
+
+    timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    base_path = os.path.join("reports", f"clientradar_report_{timestamp}")
+
+    return f"{base_path}.txt", f"{base_path}.csv"
+
+
+def build_report_text(analyzed_companies):
     report_lines = [
         "",
         "========== CLIENTRADAR REPORT ==========",
@@ -36,17 +48,94 @@ def generate_report(analyzed_companies):
         "",
     ])
 
-    report_text = "\n".join(report_lines)
+    return "\n".join(report_lines)
 
-    with open("clientradar_report.txt", "w", encoding="utf-8") as file:
+
+def save_text_report(report_text, txt_report_path):
+    with open(txt_report_path, "w", encoding="utf-8") as file:
         file.write(report_text)
 
-    with open("clientradar_report.csv", "w", newline="", encoding="utf-8") as file:
-        writer = csv.DictWriter(file, fieldnames=csv_columns)
+
+def save_csv_report(analyzed_companies, csv_report_path):
+    with open(csv_report_path, "w", newline="", encoding="utf-8") as file:
+        writer = csv.DictWriter(file, fieldnames=CSV_COLUMNS)
         writer.writeheader()
         writer.writerows(analyzed_companies)
 
-    print(report_text)
-    print("Saved to: clientradar_report.txt")
-    print("Saved to: clientradar_report.csv")
+
+def calculate_summary(analyzed_companies):
+    scores = [company["score"] for company in analyzed_companies]
+
+    return {
+        "companies_analyzed": len(analyzed_companies),
+        "websites_online": sum(
+            1 for company in analyzed_companies if company["website_online"]
+        ),
+        "websites_offline": sum(
+            1 for company in analyzed_companies if not company["website_online"]
+        ),
+        "average_score": sum(scores) / len(scores),
+        "highest_score": max(scores),
+        "lowest_score": min(scores),
+        "high_priority": sum(
+            1 for company in analyzed_companies
+            if company["recommendation"] == "High Priority"
+        ),
+        "medium_priority": sum(
+            1 for company in analyzed_companies
+            if company["recommendation"] == "Medium Priority"
+        ),
+        "low_priority": sum(
+            1 for company in analyzed_companies
+            if company["recommendation"] == "Low Priority"
+        ),
+    }
+
+
+def print_summary(summary, txt_report_path, csv_report_path):
+    print("=====================================")
+    print("CLIENTRADAR SUMMARY")
+    print("=====================================")
     print()
+    print(f"Companies analyzed: {summary['companies_analyzed']}")
+    print()
+    print(f"Websites online: {summary['websites_online']}")
+    print()
+    print(f"Websites offline: {summary['websites_offline']}")
+    print()
+    print(f"Average AI Score: {summary['average_score']:.1f}")
+    print()
+    print(f"Highest score: {summary['highest_score']}")
+    print()
+    print(f"Lowest score: {summary['lowest_score']}")
+    print()
+    print(f"High Priority: {summary['high_priority']}")
+    print()
+    print(f"Medium Priority: {summary['medium_priority']}")
+    print()
+    print(f"Low Priority: {summary['low_priority']}")
+    print()
+    print("TXT Report:")
+    print(txt_report_path)
+    print()
+    print("CSV Report:")
+    print(csv_report_path)
+    print()
+    print("=====================================")
+    print()
+
+
+def generate_report(analyzed_companies):
+    txt_report_path, csv_report_path = create_report_paths()
+    report_text = build_report_text(analyzed_companies)
+
+    save_text_report(report_text, txt_report_path)
+    save_csv_report(analyzed_companies, csv_report_path)
+
+    print(report_text)
+    print(f"Saved to: {txt_report_path}")
+    print(f"Saved to: {csv_report_path}")
+    print()
+
+    summary = calculate_summary(analyzed_companies)
+    print_summary(summary, txt_report_path, csv_report_path)

@@ -1,8 +1,10 @@
 # 🚀 ClientRadar AI
 
-**ClientRadar AI** is a beginner-friendly Python application for importing company leads from CSV, checking website availability, scoring companies, generating recommendations, and exporting reports.
+**Version:** v0.7
 
-The project is designed as a simple foundation for an AI-powered lead generation platform. It currently runs in the terminal and uses only Python's standard library.
+**ClientRadar AI** is a Python lead analysis tool that imports companies from CSV, checks website availability, scores leads, generates recommendations, and exports professional reports.
+
+The project is designed as a clean, beginner-friendly foundation for an AI-powered lead generation platform. It currently runs in the terminal and uses only Python's standard library.
 
 ---
 
@@ -11,14 +13,15 @@ The project is designed as a simple foundation for an AI-powered lead generation
 | Feature | Status | Description |
 |---|---:|---|
 | CSV import | ✅ Working | Loads companies from `core/companies.csv`. |
-| Website availability check | ✅ Working | Checks if company websites respond online. |
+| Website availability check | ✅ Working | Checks whether company websites respond online. |
 | HTTP status detection | ✅ Working | Captures response status such as `200`, `301`, or `403`. |
 | Website title extraction | ✅ Working | Reads the page `<title>` when available. |
 | Company scoring | ✅ Working | Calculates a simple lead score from website and country data. |
 | Recommendations | ✅ Working | Labels companies as `High Priority`, `Medium Priority`, or `Low Priority`. |
 | Terminal report | ✅ Working | Prints report output directly in the terminal. |
-| TXT export | ✅ Working | Saves `clientradar_report.txt` in the project root. |
-| CSV export | ✅ Working | Saves `clientradar_report.csv` in the project root. |
+| Timestamped TXT export | ✅ Working | Saves text reports inside `reports/`. |
+| Timestamped CSV export | ✅ Working | Saves structured CSV reports inside `reports/`. |
+| Summary statistics | ✅ Working | Displays totals, online/offline counts, score stats, and priority counts. |
 
 ---
 
@@ -44,9 +47,13 @@ Generate Report
    |
    +--> Print Report in Terminal
    |
-   +--> Save TXT Report
+   +--> Create reports/ Folder
    |
-   +--> Save CSV Report
+   +--> Save Timestamped TXT Report
+   |
+   +--> Save Timestamped CSV Report
+   |
+   +--> Display Summary Statistics
 ```
 
 ---
@@ -57,6 +64,8 @@ Generate Report
 |---|---|
 | Python | Main programming language |
 | `csv` | CSV import and export |
+| `datetime` | Timestamped report file names |
+| `os` | Folder creation and file paths |
 | `urllib` | Website requests |
 | `http.client` | Fallback website status checks |
 | `ssl` | HTTPS fallback handling |
@@ -155,16 +164,58 @@ Recommendation: High Priority
 
 Report generated.
 
-Saved to: clientradar_report.txt
-Saved to: clientradar_report.csv
+Saved to: reports/clientradar_report_2026-07-01_14-35-20.txt
+Saved to: reports/clientradar_report_2026-07-01_14-35-20.csv
 ```
 
-Generated files:
+Summary example:
 
-| File | Description |
-|---|---|
-| `clientradar_report.txt` | Human-readable text report |
-| `clientradar_report.csv` | Structured report data for spreadsheets or CRM workflows |
+```text
+=====================================
+CLIENTRADAR SUMMARY
+=====================================
+
+Companies analyzed: 4
+
+Websites online: 4
+
+Websites offline: 0
+
+Average AI Score: 100.0
+
+Highest score: 100
+
+Lowest score: 100
+
+High Priority: 4
+
+Medium Priority: 0
+
+Low Priority: 0
+
+TXT Report:
+reports/clientradar_report_2026-07-01_14-35-20.txt
+
+CSV Report:
+reports/clientradar_report_2026-07-01_14-35-20.csv
+
+=====================================
+```
+
+---
+
+## 🗂 Reports Folder
+
+ClientRadar AI v0.7 automatically creates a `reports/` folder when option `3` is selected.
+
+Generated report files use the current local date and time:
+
+```text
+reports/clientradar_report_YYYY-MM-DD_HH-MM-SS.txt
+reports/clientradar_report_YYYY-MM-DD_HH-MM-SS.csv
+```
+
+This keeps historical reports instead of overwriting the previous output.
 
 ---
 
@@ -182,8 +233,10 @@ ClientRadar AI/
 |   +-- report_generator.py
 |   +-- companies.csv
 |
-+-- clientradar_report.txt
-+-- clientradar_report.csv
++-- reports/
+|   +-- clientradar_report_YYYY-MM-DD_HH-MM-SS.txt
+|   +-- clientradar_report_YYYY-MM-DD_HH-MM-SS.csv
+|
 +-- README.md
 ```
 
@@ -196,7 +249,7 @@ ClientRadar AI/
 | `core/csv_loader.py` | Loads companies from CSV |
 | `core/company_analyzer.py` | Scores companies and creates recommendations |
 | `core/website_checker.py` | Checks website availability, status, and title |
-| `core/report_generator.py` | Prints and exports reports |
+| `core/report_generator.py` | Prints reports, saves exports, and displays summary statistics |
 
 ---
 
@@ -204,14 +257,11 @@ ClientRadar AI/
 
 | Stage | Goal | Status |
 |---|---|---:|
-| Stage 1 | Terminal menu application | ✅ Done |
-| Stage 2 | CSV import | ✅ Done |
-| Stage 3 | Website availability checks | ✅ Done |
-| Stage 4 | Lead scoring and recommendations | ✅ Done |
-| Stage 5 | TXT and CSV report exports | ✅ Done |
-| Stage 6 | Improve data validation | Planned |
-| Stage 7 | Add richer lead scoring rules | Planned |
-| Stage 8 | Prepare for AI-assisted recommendations | Planned |
+| v0.6 | CSV import, website checks, scoring, TXT and CSV exports | ✅ Done |
+| v0.7 | Reports folder, timestamped exports, summary statistics | ✅ Done |
+| v0.8 | Better validation and automated tests | Planned |
+| v0.9 | Richer scoring rules and cleaner report templates | Planned |
+| v1.0 | Stable lead analysis workflow for client demos | Planned |
 
 ---
 
@@ -221,9 +271,9 @@ Potential next steps:
 
 - Add better CSV validation and clearer error messages.
 - Support custom CSV file paths.
-- Add more scoring factors such as industry, company size, or website quality.
-- Save reports into a dedicated `reports/` folder.
 - Add automated tests for CSV loading, website checks, and report generation.
+- Add more scoring factors such as industry, company size, or website quality.
+- Save report metadata for easier tracking.
 - Add a simple desktop or web interface.
 - Connect future AI recommendation logic when the project is ready for external APIs.
 
@@ -239,10 +289,11 @@ It demonstrates:
 - CSV-based business data processing
 - Website availability analysis
 - Simple lead scoring
-- Report generation for client delivery
+- Timestamped report generation
+- Client-ready TXT and CSV exports
 
 ---
 
 ## 📌 Current Status
 
-ClientRadar AI is currently a working terminal-based Python prototype. It imports leads, analyzes company websites, generates recommendations, and exports reports in both TXT and CSV formats.
+ClientRadar AI v0.7 is a working terminal-based Python prototype. It imports leads, analyzes company websites, generates recommendations, exports timestamped reports, and displays summary statistics.
