@@ -23,10 +23,17 @@ Opportunity Radar ma znajdować organizacje, które przygotowują się do jubile
 | Status | Jak go przypisać |
 | --- | --- |
 | Ogłoszone obchody | Organizacja, związek lub gmina opublikowała zapowiedź z terminem. |
-| Jubileusz wyliczony | Wiarygodne źródło podaje datę lub rok założenia. Gdy znany jest tylko rok, dokładny termin pozostaje do sprawdzenia. |
+| Jubileusz wyliczony | Wiarygodne źródło podaje datę lub rok założenia. Gdy znany jest tylko rrok, dokładny termin pozostaje do sprawdzenia. |
 | Do weryfikacji | Źródła są sprzeczne, zbyt ogólne albo podają tylko datę rejestracji. |
 
 **Pola raportu:** organizacja, miejscowość, region, strona, rok założenia, typ jubileuszu, rok jubileuszu, data obchodów (jeśli ogłoszona), status dowodu, link i krótki opis dowodu, data sprawdzenia, aktywność, publiczny kanał kontaktu, priorytet i uzasadnienie.
+
+## Rejestry i API (ustalenia z 2026-11-15)
+
+- **KRS (Polska):** otwarte API Ministerstwa Sprawiedliwości działało w lipcu 2026 bez klucza, ale wyszukuje wyłącznie po numerze KRS, NIP lub REGON. Nie ma wyszukiwania po nazwie, więc nie nadaje się do znajdowania kół. Przed budową integracji sprawdzić aktualne zasady, bo pojawiły się zapowiedzi, że dostęp do API ma wymagać zgody Ministra Sprawiedliwości.
+- **Koła PZW nie są w KRS:** koło PZW jest jednostką terenową bez osobowości prawnej, powoływaną uchwałą zarządu okręgu i wpisywaną do rejestru kół prowadzonego przez okręg. Osobowość prawną mogą mieć dopiero okręgi, i te są w KRS (np. Okręg w Zielonej Górze).
+- **Wniosek:** w Polsce rok założenia koła brać ze stron okręgów i samych kół oraz z rejestru kół okręgu. KRS używać do weryfikacji okręgów oraz niezależnych klubów wędkarskich, które są osobnymi stowarzyszeniami.
+- **Vereinsregister (Niemcy):** darmowego oficjalnego API do masowych zapytań nie znamy. Na razie ręczny pilotaż. Do sprawdzenia przed automatyzacją: regulamin rejestru wobec zautomatyzowanych zapytań.
 
 ## Pilotaż
 
