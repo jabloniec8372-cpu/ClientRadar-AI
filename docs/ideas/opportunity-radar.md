@@ -23,7 +23,7 @@ Opportunity Radar ma znajdować organizacje, które przygotowują się do jubile
 | Status | Jak go przypisać |
 | --- | --- |
 | Ogłoszone obchody | Organizacja, związek lub gmina opublikowała zapowiedź z terminem. |
-| Jubileusz wyliczony | Wiarygodne źródło podaje datę lub rok założenia. Gdy znany jest tylko rrok, dokładny termin pozostaje do sprawdzenia. |
+| Jubileusz wyliczony | Wiarygodne źródło podaje datę lub rok założenia. Gdy znany jest tylko rok, dokładny termin pozostaje do sprawdzenia. |
 | Do weryfikacji | Źródła są sprzeczne, zbyt ogólne albo podają tylko datę rejestracji. |
 
 **Pola raportu:** organizacja, miejscowość, region, strona, rok założenia, typ jubileuszu, rok jubileuszu, data obchodów (jeśli ogłoszona), status dowodu, link i krótki opis dowodu, data sprawdzenia, aktywność, publiczny kanał kontaktu, priorytet i uzasadnienie.
